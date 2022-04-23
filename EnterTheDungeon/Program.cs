@@ -1,4 +1,5 @@
 ﻿using EnterTheDungeon.BussinessLayer;
+using EnterTheDungeon.Data.Models;
 using System;
 
 namespace EnterTheDungeon
@@ -7,8 +8,12 @@ namespace EnterTheDungeon
     {
         static void Main(string[] args)
         {
-            UserAuthentication userAuthentication = new UserAuthentication();
-            //userAuthentication.Register("123456");
+            using (EnterTheDungeonDbContext dbContext = new EnterTheDungeonDbContext())
+            {
+                UserAuthentication userAuthentication = new UserAuthentication();
+                //userAuthentication.Register(dbContext,"asd", "asd@asd", "123456");
+                userAuthentication.LogIn(dbContext, "asd", "123456");
+            }
         }
     }
 }
