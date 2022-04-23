@@ -25,5 +25,7 @@ namespace EnterTheDungeon.Data.Models
 
         [Required]
         public int Salt { get; set; }
+
+        public ICollection<Character> Characters { get; set; } = new List<Character>();
     }
 }

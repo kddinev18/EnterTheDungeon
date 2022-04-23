@@ -10,6 +10,8 @@ namespace EnterTheDungeon.Data.Models
     public class EnterTheDungeonDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<Item> Items { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured) 
