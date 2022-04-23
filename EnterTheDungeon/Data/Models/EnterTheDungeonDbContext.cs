@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EnterTheDungeon.Data.Models
 {
-    class EnterTheDungeonDbContext : DbContext
+    public class EnterTheDungeonDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnterTheDungeon.BussinessLayer;
+using System;
 
 namespace EnterTheDungeon
 {
@@ -6,7 +7,8 @@ namespace EnterTheDungeon
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            UserAuthentication userAuthentication = new UserAuthentication();
+            //userAuthentication.Register("123456");
         }
     }
 }
