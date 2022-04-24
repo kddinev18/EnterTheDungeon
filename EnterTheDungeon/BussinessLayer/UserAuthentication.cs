@@ -9,25 +9,18 @@ using System.Threading.Tasks;
 
 namespace EnterTheDungeon.BussinessLayer
 {
-    public class UserAuthentication
+    public static class UserAuthentication
     {
-        private string Hash(string data)
+        private static int? _loogedUserId;
+        public static int? GetCurrentUser()
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString().ToUpper();
-            }
+            return _loogedUserId.Value;
         }
-        public void LogIn(EnterTheDungeonDbContext dbContext, string username, string password)
+        private static string Hash(string data)
+        {
+            return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(data))).ToUpper().Replace("-","");
+        }
+        public static void LogIn(EnterTheDungeonDbContext dbContext, string username, string password)
         {
             List<User> users = dbContext.Users
                 .Where(u => u.Username == username)
@@ -37,10 +30,10 @@ namespace EnterTheDungeon.BussinessLayer
                 throw new ArgumentException("Your password or username is incorrect");
 
             foreach (User user in users)
-                if(Hash(password + user.Salt.ToString()) == user.PasswordHash)
-                    Console.WriteLine("Nice :)");
+                if (Hash(password + user.Salt.ToString()) == user.PasswordHash)
+                    _loogedUserId = user.Id;
         }
-        public void Register(EnterTheDungeonDbContext dbContext, string username, string email, string password)
+        public static void Register(EnterTheDungeonDbContext dbContext, string username, string email, string password)
         {
             int salt = new Random().Next(10000, 99999);
             string hashPassword = Hash(password + salt.ToString());
