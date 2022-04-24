@@ -14,6 +14,9 @@ namespace EnterTheDungeon.Data.Models
         public User User { get; set; }
         public int UserId { get; set; }
 
+        public Inventory Inventory { get; set; }
+        public int InventoryId { get; set; }
+
         [MaxLength(128)]
         [Required]
         public string Name { get; set; }
