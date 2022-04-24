@@ -4,41 +4,22 @@ using EnterTheDungeon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    partial class EnterTheDungeonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220424163313_Update Item table")]
+    partial class UpdateItemtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.Campaign", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campaign");
-                });
 
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Character", b =>
                 {
@@ -83,21 +64,6 @@ namespace EnterTheDungeon.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Characters");
-                });
-
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.CharacterCampaign", b =>
-                {
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CampaignId", "CharacterId");
-
-                    b.HasIndex("CharacterId");
-
-                    b.ToTable("CharacterCampaign");
                 });
 
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Inventory", b =>
@@ -196,25 +162,6 @@ namespace EnterTheDungeon.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.CharacterCampaign", b =>
-                {
-                    b.HasOne("EnterTheDungeon.Data.Models.Campaign", "Campaign")
-                        .WithMany("CharacterCampaigns")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EnterTheDungeon.Data.Models.Character", "Character")
-                        .WithMany("CharacterCampaigns")
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Campaign");
-
-                    b.Navigation("Character");
-                });
-
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Item", b =>
                 {
                     b.HasOne("EnterTheDungeon.Data.Models.Inventory", "Inventory")
@@ -224,16 +171,6 @@ namespace EnterTheDungeon.Migrations
                         .IsRequired();
 
                     b.Navigation("Inventory");
-                });
-
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.Campaign", b =>
-                {
-                    b.Navigation("CharacterCampaigns");
-                });
-
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.Character", b =>
-                {
-                    b.Navigation("CharacterCampaigns");
                 });
 
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Inventory", b =>

@@ -7,22 +7,17 @@ using System.Threading.Tasks;
 
 namespace EnterTheDungeon.Data.Models
 {
-    public class Item
+    public class Campaign
     {
         public int Id { get; set; }
 
-        public Inventory Inventory { get; set; }
-        public int InventoryId { get; set; }
-
-        [MaxLength(128)]
         [Required]
+        [MaxLength(128)]
         public string Name { get; set; }
 
-        [Required]
-        public int Type { get; set; }
+        [MaxLength(1024)]
+        public string Description { get; set; }
 
-        public int Strength { get; set; }
-
-        public int Constitution { get; set; }
+        public ICollection<CharacterCampaign> CharacterCampaigns { get; set; }
     }
 }

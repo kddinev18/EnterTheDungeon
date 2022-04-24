@@ -12,8 +12,7 @@ namespace EnterTheDungeon.Data.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Inventory> Inventorys { get; set; }
-        public DbSet<Campain> Campains { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured) 
@@ -21,5 +20,10 @@ namespace EnterTheDungeon.Data.Models
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EnterTheDungeon;Integrated Security=True;"); 
             }
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<CharacterCampaign>().HasKey(t => new { t.CampaignId, t.CharacterId });
+        }
+
     }
 }
