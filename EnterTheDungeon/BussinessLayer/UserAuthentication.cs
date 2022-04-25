@@ -12,9 +12,12 @@ namespace EnterTheDungeon.BussinessLayer
     public static class UserAuthentication
     {
         private static int? _loogedUserId;
-        public static int? GetCurrentUser()
+        public static int GetCurrentUser()
         {
-            return _loogedUserId.Value;
+            if (_loogedUserId.HasValue)
+                return _loogedUserId.Value;
+            else
+                throw new NotLoggedException("You first have to be logged");
         }
         private static string Hash(string data)
         {

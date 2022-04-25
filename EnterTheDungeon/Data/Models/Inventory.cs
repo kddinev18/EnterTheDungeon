@@ -11,9 +11,6 @@ namespace EnterTheDungeon.Data.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public int CharacterId { get; set; }
-
         public ICollection<Item> Items { get; set; } = new List<Item>();
 
         [Required]

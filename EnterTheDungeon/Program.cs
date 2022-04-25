@@ -11,8 +11,8 @@ namespace EnterTheDungeon
             using (EnterTheDungeonDbContext dbContext = new EnterTheDungeonDbContext())
             {
                 UserAuthentication.Register(dbContext,"asd3", "asd3@asd", "123456");
-                UserAuthentication.LogIn(dbContext, "asd", "123456");
-                Console.WriteLine(UserAuthentication.GetCurrentUser());
+                UserAuthentication.LogIn(dbContext, "asd3", "123456");
+                CharacterManager.CreateCharacter(dbContext,"milko",CharacterConstrants.CharacterClass.Fighter);
             }
         }
     }

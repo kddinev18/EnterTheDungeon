@@ -13,6 +13,8 @@ namespace EnterTheDungeon.Data.Models
         public DbSet<Character> Characters { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<CharacterCampaign> CharacterCampaigns { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured) 
