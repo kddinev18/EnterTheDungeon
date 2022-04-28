@@ -3,14 +3,16 @@ using EnterTheDungeon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    partial class EnterTheDungeonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428073826_Add Variant column in Items table")]
+    partial class AddVariantcolumninItemstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,9 +122,6 @@ namespace EnterTheDungeon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<int>("Agility")
-                        .HasColumnType("int");
 
                     b.Property<int>("Constitution")
                         .HasColumnType("int");

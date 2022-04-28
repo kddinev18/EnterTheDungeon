@@ -50,5 +50,10 @@ namespace EnterTheDungeon.BussinessLayer
             });
             dbContext.SaveChanges();
         }
+
+        public static void Heal(EnterTheDungeonDbContext dbContext)
+        {
+             
+        }
     }
 }

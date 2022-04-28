@@ -3,14 +3,16 @@ using EnterTheDungeon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    partial class EnterTheDungeonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428073200_Add column IsMaster to CharacterCampaigns table")]
+    partial class AddcolumnIsMastertoCharacterCampaignstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,9 +123,6 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("Agility")
-                        .HasColumnType("int");
-
                     b.Property<int>("Constitution")
                         .HasColumnType("int");
 
@@ -142,9 +141,6 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Variant")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

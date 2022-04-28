@@ -20,9 +20,13 @@ namespace EnterTheDungeon.Data.Models
 
         [Required]
         public int Type { get; set; }
+        [Required]
+        public int Variant { get; set; }
 
         public int Strength { get; set; }
 
         public int Constitution { get; set; }
+        public int Agility { get; set; }
+        public int HealAmount { get; set; }
     }
 }
