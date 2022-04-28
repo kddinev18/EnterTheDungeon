@@ -14,12 +14,21 @@ namespace EnterTheDungeon.BussinessLayer
         public NotLoggedException(string message, Exception inner) : base(message, inner) { }
         protected NotLoggedException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
+
+    public class UnableToDoTheAction : Exception
+    {
+        public UnableToDoTheAction() : base() { }
+        public UnableToDoTheAction(string message) : base(message) { }
+        public UnableToDoTheAction(string message, Exception inner) : base(message, inner) { }
+        protected UnableToDoTheAction(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
     public static class CharacterConstrants
     {
         public static int InventoryMaxWeight { get; } = 10;
         public static int Strenght { get; } = 10;
         public static int Agility { get; } = 10;
-        public static int Constitution { get; } = 10;
+        public static int Health { get; } = 10;
         public static int Money { get; } = 10;
         public enum CharacterClass
         {
@@ -44,16 +53,29 @@ namespace EnterTheDungeon.BussinessLayer
                 Class = ((int)characterClass),
                 Strenght = CharacterConstrants.Strenght,
                 Agility = CharacterConstrants.Agility,
-                Constitution = CharacterConstrants.Constitution,
+                MaxHealth = CharacterConstrants.Health,
+                CurrentHealth = CharacterConstrants.Health,
+                Armor = 0,
                 Money = CharacterConstrants.Money,
                 InventoryId = dbContext.Inventories.Last().Id
             });
             dbContext.SaveChanges();
         }
 
-        public static void Heal(EnterTheDungeonDbContext dbContext)
+        public static void Heal(EnterTheDungeonDbContext dbContext, Character character)
         {
-             
+            if (character.MaxHealth == character.CurrentHealth)
+                throw new UnableToDoTheAction("Can't heal your character when his health is full");
+
+            List<Item> healingPotions = dbContext.Items.Where(i => i.InventoryId == character.InventoryId && i.Type == 4 && i.Variant == 0).ToList();
+
+            if(healingPotions.Count == 0)
+                throw new UnableToDoTheAction("Can't heal your character when you don't have potions");
+
+            character.CurrentHealth += healingPotions.First().HealAmount;
+
+            if (character.MaxHealth < character.CurrentHealth)
+                character.CurrentHealth = character.MaxHealth;
         }
     }
 }

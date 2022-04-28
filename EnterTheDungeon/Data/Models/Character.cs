@@ -30,10 +30,16 @@ namespace EnterTheDungeon.Data.Models
         public int Strenght { get; set; }
 
         [Required]
-        public int Agility { get; set; }
+        public int MaxHealth { get; set; }
 
         [Required]
-        public int Constitution { get; set; }
+        public int CurrentHealth { get; set; }
+
+        [Required]
+        public int Armor { get; set; }
+
+        [Required]
+        public int Agility { get; set; }
 
         [Required]
         public int Money { get; set; }
