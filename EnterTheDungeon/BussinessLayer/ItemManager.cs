@@ -26,7 +26,7 @@ namespace EnterTheDungeon.BussinessLayer
         public enum ShieldVariant
         {
             HeavyShield = 0,
-            LightShield = 0,
+            LightShield = 1,
         }
         public enum PotionVariant
         {
@@ -57,7 +57,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Type = (int)itemType,
                 Variant = (int)potionVariant,
                 Strength = strength,
-                Constitution = constitution,
+                Health = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
                 IsEquiped = false,
@@ -74,7 +74,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Type = (int)itemType,
                 Variant = (int)shieldVariant,
                 Strength = strength,
-                Constitution = constitution,
+                Health = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
                 IsEquiped = false
@@ -91,7 +91,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Type = (int)itemType,
                 Variant = (int)weaponVariant,
                 Strength = strength,
-                Constitution = constitution,
+                Health = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
                 IsEquiped = false
@@ -108,7 +108,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Type = (int)armorVariant,
                 Variant = (int)weaponVariant,
                 Strength = strength,
-                Constitution = constitution,
+                Health = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
                 IsEquiped = false

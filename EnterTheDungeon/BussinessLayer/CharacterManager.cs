@@ -37,6 +37,7 @@ namespace EnterTheDungeon.BussinessLayer
             Ranger = 2
         }
     }
+
     public static class CharacterManager
     {
         public static void CreateCharacter(EnterTheDungeonDbContext dbContext, string name, CharacterConstrants.CharacterClass characterClass)
@@ -83,16 +84,16 @@ namespace EnterTheDungeon.BussinessLayer
             if (item.IsEquiped == true)
                 throw new UnableToDoTheAction("Can't equip already equiped item");
 
-            Item EquipedItem = dbContext.Items
+            Item EquippedItem = dbContext.Items
                 .Where(i => i.IsEquiped == true)
                 .Where(i => i.InventoryId == character.InventoryId)
                 .Where(i => i.Type == item.Type && i.Variant == item.Variant)
                 .First();
-            EquipedItem.IsEquiped = false;
+            EquippedItem.IsEquiped = false;
 
             Character desiredCharacter = dbContext.Characters.Where(c => c == character).First();
 
-            desiredCharacter -= EquipedItem;
+            desiredCharacter -= EquippedItem;
             desiredCharacter += item;
 
             dbContext.SaveChanges();
