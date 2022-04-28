@@ -60,6 +60,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Constitution = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
+                IsEquiped = false,
             });;
             dbContext.SaveChanges();
         }
@@ -76,6 +77,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Constitution = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
+                IsEquiped = false
             }); ;
             dbContext.SaveChanges();
         }
@@ -92,6 +94,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Constitution = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
+                IsEquiped = false
             }); ;
             dbContext.SaveChanges();
         }
@@ -108,6 +111,7 @@ namespace EnterTheDungeon.BussinessLayer
                 Constitution = constitution,
                 Agility = agility,
                 HealAmount = healAmount,
+                IsEquiped = false
             }); ;
             dbContext.SaveChanges();
         }

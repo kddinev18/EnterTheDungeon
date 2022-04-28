@@ -77,5 +77,13 @@ namespace EnterTheDungeon.BussinessLayer
             if (character.MaxHealth < character.CurrentHealth)
                 character.CurrentHealth = character.MaxHealth;
         }
+
+        public static void EquipItem(EnterTheDungeonDbContext dbContext ,Character character, Item item)
+        {
+            if (item.IsEquiped == true)
+                throw new UnableToDoTheAction("Can't equip already equiped item");
+
+            
+        } 
     }
 }

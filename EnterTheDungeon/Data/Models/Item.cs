@@ -28,5 +28,6 @@ namespace EnterTheDungeon.Data.Models
         public int Constitution { get; set; }
         public int Agility { get; set; }
         public int HealAmount { get; set; }
+        public bool IsEquiped { get; set; }
     }
 }
