@@ -24,10 +24,11 @@ namespace EnterTheDungeon.Data.Models
         public int Variant { get; set; }
 
         public int Strength { get; set; }
-
-        public int Constitution { get; set; }
+        public int Armor { get; set; }
+        public int Health { get; set; }
         public int Agility { get; set; }
         public int HealAmount { get; set; }
+        [Required]
         public bool IsEquiped { get; set; }
     }
 }

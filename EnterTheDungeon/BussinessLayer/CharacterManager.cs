@@ -51,7 +51,7 @@ namespace EnterTheDungeon.BussinessLayer
                 UserId = UserAuthentication.GetCurrentUser(),
                 Name = name,
                 Class = ((int)characterClass),
-                Strenght = CharacterConstrants.Strenght,
+                Strength = CharacterConstrants.Strenght,
                 Agility = CharacterConstrants.Agility,
                 MaxHealth = CharacterConstrants.Health,
                 CurrentHealth = CharacterConstrants.Health,
@@ -83,7 +83,37 @@ namespace EnterTheDungeon.BussinessLayer
             if (item.IsEquiped == true)
                 throw new UnableToDoTheAction("Can't equip already equiped item");
 
-            
-        } 
+            Item EquipedItem = dbContext.Items
+                .Where(i => i.IsEquiped == true)
+                .Where(i => i.InventoryId == character.InventoryId)
+                .Where(i => i.Type == item.Type && i.Variant == item.Variant)
+                .First();
+            EquipedItem.IsEquiped = false;
+
+            Character desiredCharacter = dbContext.Characters.Where(c => c == character).First();
+
+            desiredCharacter -= EquipedItem;
+            desiredCharacter += item;
+
+            dbContext.SaveChanges();
+        }
+
+        public static void UnequipItem(EnterTheDungeonDbContext dbContext, Character character, Item item)
+        {
+            if (item.IsEquiped == false)
+                throw new UnableToDoTheAction("Can't unequip already unequiped item");
+
+            Item EquipedItem = dbContext.Items
+                .Where(i => i.IsEquiped == true)
+                .Where(i => i.InventoryId == character.InventoryId)
+                .Where(i => i.Type == item.Type && i.Variant == item.Variant)
+                .First();
+            EquipedItem.IsEquiped = false;
+
+            Character desiredCharacter = dbContext.Characters.Where(c => c == character).First();
+            desiredCharacter -= item;
+
+            dbContext.SaveChanges();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,24 @@ namespace EnterTheDungeon.Data.Models
 {
     public class Character
     {
+        public static Character operator -(Character character, Item item)
+        {
+            character.Agility -= item.Agility;
+            character.MaxHealth -= item.Health;
+            character.Strength -= item.Strength;
+            character.Armor -= item.Armor;
+
+            return character;
+        }
+        public static Character operator +(Character character, Item item)
+        {
+            character.Agility += item.Agility;
+            character.MaxHealth += item.Health;
+            character.Strength += item.Strength;
+            character.Armor += item.Armor;
+
+            return character;
+        }
         public int Id { get; set; }
 
         public User User { get; set; }
@@ -27,7 +46,7 @@ namespace EnterTheDungeon.Data.Models
         public int Class { get; set; }
 
         [Required]
-        public int Strenght { get; set; }
+        public int Strength { get; set; }
 
         [Required]
         public int MaxHealth { get; set; }
