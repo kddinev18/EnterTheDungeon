@@ -118,6 +118,9 @@ namespace EnterTheDungeon.BussinessLayer
             dbContext.SaveChanges();
         }
 
-        
+        public static List<Campaign> GetCampaigns(EnterTheDungeonDbContext dbContext, Character character)
+        {
+            return dbContext.CharacterCampaigns.Where(cc => cc.CharacterId == character.Id).Include(cc => cc.Campaign).Select(cc => cc.Campaign).ToList();
+        }
     }
 }
