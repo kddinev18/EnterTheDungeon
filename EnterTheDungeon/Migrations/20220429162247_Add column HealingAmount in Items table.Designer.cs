@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    [Migration("20220428072814_Add colum HealAmout to the Items table")]
-    partial class AddcolumHealAmouttotheItemstable
+    [Migration("20220429162247_Add column HealingAmount in Items table")]
+    partial class AddcolumnHealingAmountinItemstable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,13 +51,19 @@ namespace EnterTheDungeon.Migrations
                     b.Property<int>("Agility")
                         .HasColumnType("int");
 
+                    b.Property<int>("Armor")
+                        .HasColumnType("int");
+
                     b.Property<int>("Class")
                         .HasColumnType("int");
 
-                    b.Property<int>("Constitution")
+                    b.Property<int>("CurrentHealth")
                         .HasColumnType("int");
 
                     b.Property<int>("InventoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxHealth")
                         .HasColumnType("int");
 
                     b.Property<int>("Money")
@@ -68,7 +74,7 @@ namespace EnterTheDungeon.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("Strenght")
+                    b.Property<int>("Strength")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -90,6 +96,9 @@ namespace EnterTheDungeon.Migrations
 
                     b.Property<int>("CharacterId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsMaster")
+                        .HasColumnType("bit");
 
                     b.HasKey("CampaignId", "CharacterId");
 
@@ -120,14 +129,23 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("Constitution")
+                    b.Property<int>("Agility")
                         .HasColumnType("int");
 
-                    b.Property<int>("HealAmount")
+                    b.Property<int>("Armor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HealingAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Health")
                         .HasColumnType("int");
 
                     b.Property<int>("InventoryId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsEquiped")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -138,6 +156,9 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Variant")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

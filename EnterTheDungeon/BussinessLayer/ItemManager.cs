@@ -49,7 +49,7 @@ namespace EnterTheDungeon.BussinessLayer
 
     public static class ItemManager
     {
-        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.PotionVariant potionVariant,int strength, int constitution, int agility, int healAmount)
+        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.PotionVariant potionVariant,int strength, int constitution, int agility, int healingAmount)
         {
             dbContext.Items.Add(new Item() {
                 InventoryId = character.InventoryId,
@@ -59,13 +59,14 @@ namespace EnterTheDungeon.BussinessLayer
                 Strength = strength,
                 Health = constitution,
                 Agility = agility,
-                HealAmount = healAmount,
+                HealingAmount = healingAmount,
                 IsEquiped = false,
-            });;
+            });
+            // ?
             dbContext.SaveChanges();
         }
 
-        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.ShieldVariant shieldVariant, int strength, int constitution, int agility, int healAmount)
+        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.ShieldVariant shieldVariant, int strength, int constitution, int agility, int healingAmount)
         {
             dbContext.Items.Add(new Item()
             {
@@ -76,13 +77,13 @@ namespace EnterTheDungeon.BussinessLayer
                 Strength = strength,
                 Health = constitution,
                 Agility = agility,
-                HealAmount = healAmount,
+                HealingAmount = healingAmount,
                 IsEquiped = false
-            }); ;
+            });
             dbContext.SaveChanges();
         }
 
-        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.WeaponVariant weaponVariant, int strength, int constitution, int agility, int healAmount)
+        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ItemType itemType, ItemConstatnts.WeaponVariant weaponVariant, int strength, int constitution, int agility, int healingAmount)
         {
             dbContext.Items.Add(new Item()
             {
@@ -93,13 +94,13 @@ namespace EnterTheDungeon.BussinessLayer
                 Strength = strength,
                 Health = constitution,
                 Agility = agility,
-                HealAmount = healAmount,
+                HealingAmount = healingAmount,
                 IsEquiped = false
-            }); ;
+            });
             dbContext.SaveChanges();
         }
 
-        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ArmorVariant armorVariant, ItemConstatnts.WeaponVariant weaponVariant, int strength, int constitution, int agility, int healAmount)
+        public static void CreateItem(EnterTheDungeonDbContext dbContext, Character character, string name, ItemConstatnts.ArmorVariant armorVariant, ItemConstatnts.WeaponVariant weaponVariant, int strength, int constitution, int agility, int healingAmount)
         {
             dbContext.Items.Add(new Item()
             {
@@ -110,9 +111,15 @@ namespace EnterTheDungeon.BussinessLayer
                 Strength = strength,
                 Health = constitution,
                 Agility = agility,
-                HealAmount = healAmount,
+                HealingAmount = healingAmount,
                 IsEquiped = false
-            }); ;
+            });
+            dbContext.SaveChanges();
+        }
+
+        public static void DiscradItem(EnterTheDungeonDbContext dbContext, Item item)
+        {
+            dbContext.Items.Remove(item);
             dbContext.SaveChanges();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using EnterTheDungeon.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace EnterTheDungeon.BussinessLayer
             });
 
             dbContext.SaveChanges();
+        }
+
+        public static List<Character> GetCharacters(EnterTheDungeonDbContext dbContext, Campaign campaign)
+        {
+            return dbContext.CharacterCampaigns.Where(cc => cc.CampaignId == campaign.Id).Include(cc => cc.Character).Select(cc => cc.Character).ToList();
         }
     }
 }

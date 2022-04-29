@@ -11,12 +11,23 @@ namespace EnterTheDungeon
         {
             using (EnterTheDungeonDbContext dbContext = new EnterTheDungeonDbContext())
             {
-                //UserAuthentication.Register(dbContext,"asd3", "asd3@asd", "123456");
-                //User user = dbContext.Users.First();
-                //user.Username = "asd";
-                //dbContext.SaveChanges();
-                //UserAuthentication.LogIn(dbContext, "asd", "123456");
-                //CharacterManager.CreateCharacter(dbContext,"milko",CharacterConstrants.CharacterClass.Fighter);
+                //UserAuthentication.Register(dbContext,"Kokicha2", "kokicha2@gmail.com", "111111");
+                UserAuthentication.LogIn(dbContext, "Kokicha2", "111111");
+
+                //CharacterManager.CreateCharacter(dbContext, "Dum Kai'sa", CharacterConstants.CharacterClass.Fighter);
+                /*ItemManager.CreateItem(
+                    dbContext,
+                    dbContext.Characters.OrderBy(c => c.Id).First(),
+                    "Healing Potion",
+                    ItemConstatnts.ItemType.Potion,
+                    ItemConstatnts.PotionVariant.HealingPotion,
+                    0,
+                    0,
+                    0,
+                    2);*/
+                dbContext.Characters.OrderBy(c => c.Id).First().CurrentHealth -= 2;
+                dbContext.SaveChanges();
+                CharacterManager.Heal();
             }
         }
     }

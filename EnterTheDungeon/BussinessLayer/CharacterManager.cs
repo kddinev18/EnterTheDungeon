@@ -24,7 +24,7 @@ namespace EnterTheDungeon.BussinessLayer
         protected UnableToDoTheAction(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 
-    public static class CharacterConstrants
+    public static class CharacterConstants
     {
         public static int InventoryMaxWeight { get; } = 10;
         public static int Strenght { get; } = 10;
@@ -41,11 +41,11 @@ namespace EnterTheDungeon.BussinessLayer
 
     public static class CharacterManager
     {
-        public static void CreateCharacter(EnterTheDungeonDbContext dbContext, string name, CharacterConstrants.CharacterClass characterClass)
+        public static void CreateCharacter(EnterTheDungeonDbContext dbContext, string name, CharacterConstants.CharacterClass characterClass)
         {
             dbContext.Inventories.Add(new Inventory()
             {
-                MaxWeight = CharacterConstrants.InventoryMaxWeight
+                MaxWeight = CharacterConstants.InventoryMaxWeight
             });
             dbContext.SaveChanges();
             dbContext.Characters.Add(new Character() 
@@ -53,13 +53,13 @@ namespace EnterTheDungeon.BussinessLayer
                 UserId = UserAuthentication.GetCurrentUser(),
                 Name = name,
                 Class = ((int)characterClass),
-                Strength = CharacterConstrants.Strenght,
-                Agility = CharacterConstrants.Agility,
-                MaxHealth = CharacterConstrants.Health,
-                CurrentHealth = CharacterConstrants.Health,
+                Strength = CharacterConstants.Strenght,
+                Agility = CharacterConstants.Agility,
+                MaxHealth = CharacterConstants.Health,
+                CurrentHealth = CharacterConstants.Health,
                 Armor = 0,
-                Money = CharacterConstrants.Money,
-                InventoryId = dbContext.Inventories.Last().Id
+                Money = CharacterConstants.Money,
+                InventoryId = dbContext.Inventories.OrderBy(i => i.Id).Last().Id
             });
             dbContext.SaveChanges();
         }
@@ -74,10 +74,12 @@ namespace EnterTheDungeon.BussinessLayer
             if(healingPotions.Count == 0)
                 throw new UnableToDoTheAction("Can't heal your character when you don't have potions");
 
-            character.CurrentHealth += healingPotions.First().HealAmount;
+            character.CurrentHealth += healingPotions.First().HealingAmount;
 
             if (character.MaxHealth < character.CurrentHealth)
                 character.CurrentHealth = character.MaxHealth;
+
+            dbContext.SaveChanges();
         }
 
         public static void EquipItem(EnterTheDungeonDbContext dbContext ,Character character, Item item)

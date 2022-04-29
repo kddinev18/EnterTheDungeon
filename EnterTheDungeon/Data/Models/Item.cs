@@ -27,7 +27,7 @@ namespace EnterTheDungeon.Data.Models
         public int Armor { get; set; }
         public int Health { get; set; }
         public int Agility { get; set; }
-        public int HealAmount { get; set; }
+        public int HealingAmount { get; set; }
         [Required]
         public bool IsEquiped { get; set; }
     }

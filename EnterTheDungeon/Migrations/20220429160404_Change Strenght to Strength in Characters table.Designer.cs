@@ -3,14 +3,16 @@ using EnterTheDungeon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    partial class EnterTheDungeonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429160404_Change Strenght to Strength in Characters table")]
+    partial class ChangeStrenghttoStrengthinCharacterstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,7 +135,7 @@ namespace EnterTheDungeon.Migrations
                     b.Property<int>("Armor")
                         .HasColumnType("int");
 
-                    b.Property<int>("HealingAmount")
+                    b.Property<int>("HealAmount")
                         .HasColumnType("int");
 
                     b.Property<int>("Health")

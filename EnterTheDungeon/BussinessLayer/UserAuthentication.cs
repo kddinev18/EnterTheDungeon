@@ -11,11 +11,11 @@ namespace EnterTheDungeon.BussinessLayer
 {
     public static class UserAuthentication
     {
-        private static int? _loogedUserId;
+        private static int? _logedUserId;
         public static int GetCurrentUser()
         {
-            if (_loogedUserId.HasValue)
-                return _loogedUserId.Value;
+            if (_logedUserId.HasValue)
+                return _logedUserId.Value;
             else
                 throw new NotLoggedException("You first have to be logged");
         }
@@ -34,7 +34,7 @@ namespace EnterTheDungeon.BussinessLayer
 
             foreach (User user in users)
                 if (Hash(password + user.Salt.ToString()) == user.PasswordHash)
-                    _loogedUserId = user.Id;
+                    _logedUserId = user.Id;
         }
         public static void Register(EnterTheDungeonDbContext dbContext, string username, string email, string password)
         {
