@@ -69,12 +69,13 @@ namespace EnterTheDungeon.BussinessLayer
             if (character.MaxHealth == character.CurrentHealth)
                 throw new UnableToDoTheAction("Can't heal your character when his health is full");
 
-            List<Item> healingPotions = dbContext.Items.Where(i => i.InventoryId == character.InventoryId && i.Type == 4 && i.Variant == 0).ToList();
+            Item healingPotions = dbContext.Items.Where(i => i.InventoryId == character.InventoryId && i.Type == 4 && i.Variant == 0).OrderBy(i => i.Id).First();
 
-            if(healingPotions.Count == 0)
+            if(healingPotions is null)
                 throw new UnableToDoTheAction("Can't heal your character when you don't have potions");
 
-            character.CurrentHealth += healingPotions.First().HealingAmount;
+            character.CurrentHealth += healingPotions.HealingAmount;
+            ItemManager.DiscradItem(dbContext, healingPotions);
 
             if (character.MaxHealth < character.CurrentHealth)
                 character.CurrentHealth = character.MaxHealth;

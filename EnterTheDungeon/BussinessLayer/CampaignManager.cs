@@ -19,19 +19,28 @@ namespace EnterTheDungeon.BussinessLayer
             });
             dbContext.SaveChanges();
 
+            List<CharacterCampaign> characterCampaigns = new();
+            int CampaignId = dbContext.Campaigns.OrderBy(c => c.Id).Last().Id;
+
             foreach (Character character in participatingCharacters)
             {
-                dbContext.CharacterCampaigns.Add(new CharacterCampaign() 
-                {
-                    CampaignId = dbContext.Campaigns.Last().Id,
-                    CharacterId = character.UserId,
-                });
+                if(character.Id == master.Id)
+                    characterCampaigns.Add(new CharacterCampaign()
+                    {
+                        CampaignId = CampaignId,
+                        CharacterId = character.UserId,
+                        IsMaster = true
+                    });
+                else
+                    characterCampaigns.Add(new CharacterCampaign()
+                    {
+                        CampaignId = CampaignId,
+                        CharacterId = character.UserId,
+                        IsMaster = false
+                    });
             }
-            dbContext.CharacterCampaigns.Add(new CharacterCampaign()
-            {
-                CampaignId = dbContext.Campaigns.Last().Id,
-                CharacterId = master.UserId,
-            });
+
+            dbContext.CharacterCampaigns.AddRange(characterCampaigns);
 
             dbContext.SaveChanges();
         }
