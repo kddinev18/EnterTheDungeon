@@ -18,6 +18,6 @@ namespace EnterTheDungeon.Data.Models
         [MaxLength(1024)]
         public string Description { get; set; }
 
-        public ICollection<CharacterCampaign> CharacterCampaigns { get; set; }
+        public ICollection<CharacterCampaign> CharacterCampaigns { get; set; } = new List<CharacterCampaign>();
     }
 }

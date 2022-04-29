@@ -36,7 +36,7 @@ namespace EnterTheDungeon.Data.Models
         public Inventory Inventory { get; set; }
         public int InventoryId { get; set; }
 
-        public ICollection<CharacterCampaign> CharacterCampaigns { get; set; }
+        public ICollection<CharacterCampaign> CharacterCampaigns { get; set; } = new List<CharacterCampaign>();
 
         [MaxLength(128)]
         [Required]
