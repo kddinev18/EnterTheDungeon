@@ -3,14 +3,16 @@ using EnterTheDungeon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EnterTheDungeon.Migrations
 {
     [DbContext(typeof(EnterTheDungeonDbContext))]
-    partial class EnterTheDungeonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220430165829_Add Entities table")]
+    partial class AddEntitiestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,16 +114,10 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("AfterEffect")
-                        .HasColumnType("int");
-
                     b.Property<int>("Armor")
                         .HasColumnType("int");
 
                     b.Property<int>("AttackType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CampaignId")
                         .HasColumnType("int");
 
                     b.Property<int>("Health")
@@ -134,8 +130,6 @@ namespace EnterTheDungeon.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampaignId");
 
                     b.ToTable("Entities");
                 });
@@ -269,17 +263,6 @@ namespace EnterTheDungeon.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("EnterTheDungeon.Data.Models.Entity", b =>
-                {
-                    b.HasOne("EnterTheDungeon.Data.Models.Campaign", "Campaign")
-                        .WithMany("Entities")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Campaign");
-                });
-
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Item", b =>
                 {
                     b.HasOne("EnterTheDungeon.Data.Models.Inventory", "Inventory")
@@ -294,8 +277,6 @@ namespace EnterTheDungeon.Migrations
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Campaign", b =>
                 {
                     b.Navigation("CharacterCampaigns");
-
-                    b.Navigation("Entities");
                 });
 
             modelBuilder.Entity("EnterTheDungeon.Data.Models.Character", b =>

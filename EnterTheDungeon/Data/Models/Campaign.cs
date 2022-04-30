@@ -19,5 +19,7 @@ namespace EnterTheDungeon.Data.Models
         public string Description { get; set; }
 
         public ICollection<CharacterCampaign> CharacterCampaigns { get; set; } = new List<CharacterCampaign>();
+
+        public ICollection<Entity> Entities { get; set; } = new List<Entity>();
     }
 }
