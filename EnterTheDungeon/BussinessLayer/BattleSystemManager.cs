@@ -11,12 +11,12 @@ namespace EnterTheDungeon.BussinessLayer
     public static class EntityConstants
     {
         public static List<string> Names { get; set; }
-        enum AttackType
+        public enum AttackType
         {
             MeleAttack = 0,
             RangeAttack = 1
         }
-        enum AfterEffect
+        public enum AfterEffect
         {
             None = 0,
             Posion = 1,
@@ -30,23 +30,28 @@ namespace EnterTheDungeon.BussinessLayer
         public static List<Character> Characters { get; set; }
         public static void InitiateBattle(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
-            Characters = GetCharacters(dbContext, campaign);
-            Entities = GenerateEntities(dbContext, campaign);
         }
-        public static List<Entity> GenerateEntities(EnterTheDungeonDbContext dbContext, Campaign campaign)
+        public static void GenerateEntities(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
             foreach (Character character in Characters)
             {
-                Entities.Add(new Entity() 
-                { 
-                    Name = "Random Name"
+                Entities.Add(new Entity()
+                {
+                    CampaignId = campaign.Id,
+                    Name = "Random Name",
+                    Strength = character.Strength + new Random().Next(-4, 4),
+                    Health = character.MaxHealth + new Random().Next(-4, 4),
+                    Armor = character.Armor + new Random().Next(-4, 4),
+                    AttackType = (int)Enum.GetValues(typeof(EntityConstants.AttackType)).GetValue(new Random().Next(Enum.GetValues(typeof(EntityConstants.AttackType)).Length)),
+                    AfterEffect = (int)Enum.GetValues(typeof(EntityConstants.AfterEffect)).GetValue(new Random().Next(Enum.GetValues(typeof(EntityConstants.AfterEffect)).Length))
                 });
             }
-            throw new Exception();
+            dbContext.Entities.AddRange(Entities);
+            dbContext.SaveChanges();
         }
-        public static List<Character> GetCharacters(EnterTheDungeonDbContext dbContext, Campaign campaign)
+        public static void GetCharacters(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
-           return dbContext.CharacterCampaigns.Where(cc => cc.CampaignId == campaign.Id).Include(cc => cc.Character).Select(cc => cc.Character).ToList();
+            Characters.AddRange(dbContext.CharacterCampaigns.Where(cc => cc.CampaignId == campaign.Id).Include(cc => cc.Character).Select(cc => cc.Character).ToList());
         }
     }
 }
