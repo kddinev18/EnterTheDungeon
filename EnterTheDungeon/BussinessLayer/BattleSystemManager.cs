@@ -30,6 +30,8 @@ namespace EnterTheDungeon.BussinessLayer
         public static List<Character> Characters { get; set; }
         public static void InitiateBattle(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
+            GenerateEntities(dbContext, campaign);
+            GetCharacters(dbContext, campaign);
         }
         public static void GenerateEntities(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
@@ -52,6 +54,11 @@ namespace EnterTheDungeon.BussinessLayer
         public static void GetCharacters(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
             Characters.AddRange(dbContext.CharacterCampaigns.Where(cc => cc.CampaignId == campaign.Id).Include(cc => cc.Character).Select(cc => cc.Character).ToList());
+        }
+        public static void DiscradEntity(EnterTheDungeonDbContext dbContext, Entity entity)
+        {
+            dbContext.Entities.Remove(entity);
+            dbContext.SaveChanges();
         }
     }
 }
