@@ -33,7 +33,17 @@ namespace EnterTheDungeon.BussinessLayer
             Characters = GetCharacters(dbContext, campaign);
             Entities = GenerateEntities(dbContext, campaign);
         }
-        
+        public static List<Entity> GenerateEntities(EnterTheDungeonDbContext dbContext, Campaign campaign)
+        {
+            foreach (Character character in Characters)
+            {
+                Entities.Add(new Entity() 
+                { 
+                    Name = "Random Name"
+                });
+            }
+            throw new Exception();
+        }
         public static List<Character> GetCharacters(EnterTheDungeonDbContext dbContext, Campaign campaign)
         {
            return dbContext.CharacterCampaigns.Where(cc => cc.CampaignId == campaign.Id).Include(cc => cc.Character).Select(cc => cc.Character).ToList();
