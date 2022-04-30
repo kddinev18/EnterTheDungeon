@@ -60,5 +60,13 @@ namespace EnterTheDungeon.BussinessLayer
             dbContext.Entities.Remove(entity);
             dbContext.SaveChanges();
         }
+        public static void DiscradEntities(EnterTheDungeonDbContext dbContext, IEnumerable<Entity> entities)
+        {
+            foreach (Entity entity in entities)
+            {
+                dbContext.Entities.Remove(entity);
+            }
+            dbContext.SaveChanges();
+        }
     }
 }
