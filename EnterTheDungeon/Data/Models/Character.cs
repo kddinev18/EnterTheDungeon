@@ -62,5 +62,6 @@ namespace EnterTheDungeon.Data.Models
 
         [Required]
         public int Money { get; set; }
+        public ICollection<Attack> Attacks { get; set; } = new List<Attack>();
     }
 }
