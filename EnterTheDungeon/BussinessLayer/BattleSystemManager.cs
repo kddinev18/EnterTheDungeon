@@ -14,7 +14,7 @@ namespace EnterTheDungeon.BussinessLayer
         public enum AttackType
         {
             MeleAttack = 0,
-            RangeAttack = 1
+            RangeAttack = 1,
         }
         public enum AfterEffect
         {
